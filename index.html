@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>WaterPans Global Network</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+body {
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:#f4f7fb;
+}
+
+header {
+    background: linear-gradient(90deg,#0d2b52,#1e4c88);
+    color:white;
+    text-align:center;
+    padding:25px 10px;
+}
+
+header h1 {
+    margin:0;
+    font-size:32px;
+}
+
+header p {
+    margin-top:6px;
+    font-size:16px;
+    opacity:0.9;
+}
+
+.stats {
+    background:#163a6b;
+    color:white;
+    text-align:center;
+    padding:12px;
+    font-size:18px;
+}
+
+#map {
+    height:75vh;
+}
+
+.popup-title {
+    font-weight:bold;
+    font-size:16px;
+    margin-bottom:6px;
+}
+
+.partner-list {
+    margin-top:6px;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>WaterPans Global Network</h1>
+    <p>Country-Based Partners, Alumni & Student Presence</p>
+</header>
+
+<div class="stats">
+    Alumni: 744 &nbsp; | &nbsp; Current Students: 218 &nbsp; | &nbsp; Countries: 45+
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+var map = L.map('map').setView([20, 10], 2);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 5,
+}).addTo(map);
+
+/* ================================
+   COUNTRY DATA
+================================ */
+
+var countries = [
+
+{ name:"Netherlands", lat:52.1, lng:5.3, alumni:55, students:16, 
+partners:["Deltares","TNO","KWR","IGRAC","UNESCO"] },
+
+{ name:"USA", lat:38.9, lng:-98, alumni:48, students:12,
+partners:["USGS","EPA","World Bank","Stanford","MIT"] },
+
+{ name:"India", lat:22.5, lng:78.9, alumni:63, students:18,
+partners:["IIT","National Institute of Hydrology","Jal Shakti"] },
+
+{ name:"China", lat:35.8, lng:104, alumni:52, students:14,
+partners:["China University of Geosciences"] },
+
+{ name:"Japan", lat:36.2, lng:138.2, alumni:34, students:10,
+partners:["JICA","University of Tokyo"] },
+
+{ name:"Germany", lat:51.1, lng:10.4, alumni:40, students:12,
+partners:["UFZ","BGR"] },
+
+{ name:"South Africa", lat:-30.6, lng:22.9, alumni:29, students:8,
+partners:["University of Cape Town","WRC"] },
+
+{ name:"Nigeria", lat:9.1, lng:8.7, alumni:25, students:7,
+partners:["Ministry of Water Resources"] },
+
+{ name:"Bangladesh", lat:23.7, lng:90.3, alumni:36, students:11,
+partners:["Institute of Water Modelling"] },
+
+{ name:"Indonesia", lat:-2.5, lng:118, alumni:44, students:13,
+partners:["ITB","Ministry of Public Works"] },
+
+{ name:"Brazil", lat:-14.2, lng:-51.9, alumni:22, students:6,
+partners:["ANA Brazil","USP"] },
+
+{ name:"Australia", lat:-25, lng:133, alumni:20, students:6,
+partners:["CSIRO","University of Melbourne"] },
+
+{ name:"UK", lat:55.3, lng:-3.4, alumni:33, students:9,
+partners:["CEH","Imperial College London"] }
+
+];
+
+
+/* ================================
+   CIRCLE STYLE
+================================ */
+
+function getColor(alumni){
+    if (alumni > 50) return "#e53935";
+    if (alumni > 35) return "#fb8c00";
+    if (alumni > 20) return "#43a047";
+    if (alumni > 10) return "#1e88e5";
+    return "#8e24aa";
+}
+
+countries.forEach(function(country){
+
+    var circle = L.circleMarker([country.lat, country.lng], {
+        radius: Math.sqrt(country.alumni)*1.5,
+        color: "#fff",
+        weight:1,
+        fillColor: getColor(country.alumni),
+        fillOpacity:0.85
+    }).addTo(map);
+
+    circle.bindPopup(
+        "<div class='popup-title'>" + country.name + "</div>" +
+        "Alumni: <b>" + country.alumni + "</b><br>" +
+        "Current Students: <b>" + country.students + "</b>" +
+        "<div class='partner-list'><b>Partners:</b><br>" +
+        country.partners.join("<br>") +
+        "</div>"
+    );
+
+});
+
+</script>
+
+</body>
+</html>
