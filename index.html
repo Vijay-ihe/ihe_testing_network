@@ -1,1 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IHE Delft Alumni Global Network</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Inter',sans-serif;
+background:#f4f7fb;
+color:#1e2a38;
+}
+
+/* ================= HEADER ================= */
+.header{
+position:relative;
+background:linear-gradient(180deg,#f4f7fb 0%,#e9eff6 100%);
+padding:70px 80px 160px 80px;
+overflow:hidden;
+}
+
+.header-inner{
+position:relative;
+z-index:2;
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+}
+
+.header-left h1{
+font-size:40px;
+font-weight:800;
+color:#1f3e73;
+}
+
+.header-left p{
+margin-top:10px;
+color:#3c5f8f;
+font-size:16px;
+}
+
+.logo img{
+height:85px;
+}
+
+/* KPI */
+.kpis{
+margin-top:50px;
+display:flex;
+gap:30px;
+}
+
+.kpi{
+background:white;
+padding:22px 36px;
+border-radius:18px;
+box-shadow:0 20px 50px rgba(0,0,0,0.15);
+min-width:160px;
+text-align:center;
+}
+
+.kpi h2{
+font-size:28px;
+font-weight:800;
+color:#1f4e8a;
+}
+
+.kpi span{
+display:block;
+margin-top:6px;
+font-size:14px;
+color:#555;
+}
+
+/* Wave */
+.wave{
+position:absolute;
+bottom:0;
+left:0;
+width:100%;
+z-index:1;
+}
+
+/* ================= MAP ================= */
+.map-wrapper{
+width:90%;
+max-width:1400px;
+margin:-90px auto 80px auto;
+background:white;
+border-radius:25px;
+box-shadow:0 40px 100px rgba(0,0,0,0.18);
+padding:30px;
+position:relative;
+z-index:3;
+}
+
+#map{
+height:600px;
+border-radius:20px;
+}
+
+/* Footer */
+.footer{
+background:#153b72;
+color:white;
+padding:20px;
+text-align:center;
+font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="header-inner">
+
+<div class="header-left">
+<h1>IHE Delft Alumni Global Network</h1>
+<p>Building Water Solutions for a Sustainable World</p>
+
+<div class="kpis">
+<div class="kpi">
+<h2>744</h2>
+<span>Total Alumni</span>
+</div>
+
+<div class="kpi">
+<h2>218</h2>
+<span>Current Students</span>
+</div>
+
+<div class="kpi">
+<h2>45+</h2>
+<span>Countries</span>
+</div>
+</div>
+</div>
+
+<div class="logo">
+<img src="ihe-delft-institute_unesco_rgb_2.png" alt="IHE Delft Logo">
+</div>
+
+</div>
+
+<!-- Subtle Wave -->
+<svg class="wave" viewBox="0 0 1440 320">
+<path fill="#e1eaf5"
+d="M0,192L80,186.7C160,181,320,171,480,165.3C640,160,800,160,960,165.3C1120,171,1280,181,1360,186.7L1440,192V320H0Z">
+</path>
+</svg>
+
+</div>
+
+<div class="map-wrapper">
+<div id="map"></div>
+</div>
+
+<div class="footer">
+Together for water. Together for the future.
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+var map = L.map('map',{zoomControl:true}).setView([20,0],2);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{
+maxZoom:6
+}).addTo(map);
+
+function bubbleColor(v){
+if(v>50) return "#e53935";
+if(v>30) return "#fb8c00";
+if(v>10) return "#43a047";
+return "#1e88e5";
+}
+
+function bubbleStyle(color){
+return{
+radius:12,
+fillColor:color,
+color:"#fff",
+weight:2,
+fillOpacity:0.95
+}
+}
+
+var countries=[
+{name:"USA",lat:37,lng:-95,count:48},
+{name:"Netherlands",lat:52,lng:5,count:55},
+{name:"India",lat:22,lng:78,count:63},
+{name:"Germany",lat:51,lng:10,count:40},
+{name:"South Africa",lat:-29,lng:24,count:29}
+];
+
+countries.forEach(c=>{
+L.circleMarker([c.lat,c.lng],bubbleStyle(bubbleColor(c.count)))
+.addTo(map)
+.bindPopup("<b>"+c.name+"</b><br>Alumni: "+c.count);
+});
+</script>
+
+</body>
+</html>
