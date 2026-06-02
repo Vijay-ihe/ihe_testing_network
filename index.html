@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/>
+<meta charset="utf-8">
 <title>IHE Delft Alumni Global Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-font-family:"Segoe UI",Arial,sans-serif;
-background:#f3f6fb;
+font-family:'Inter',sans-serif;
+background:#f4f7fb;
+color:#1e2a3a;
 }
 
 /* HEADER */
-header{
-background:linear-gradient(120deg,#1b3a6b,#1e5aa8,#0288d1);
+.header{
+background:linear-gradient(120deg,#1b3a6b,#1e5aa8);
+padding:40px 60px;
 color:white;
-padding:50px 60px;
 position:relative;
 }
 
-header h1{
+.header h1{
 margin:0;
-font-size:40px;
+font-size:36px;
+font-weight:700;
 }
 
-header p{
+.header p{
 margin-top:8px;
 opacity:0.9;
 }
@@ -33,123 +37,175 @@ opacity:0.9;
 .logo{
 position:absolute;
 right:60px;
-top:50px;
+top:40px;
 text-align:right;
 }
 
-.logo strong{font-size:20px;}
-.logo small{display:block;font-size:12px;opacity:0.8}
-
-/* METRICS */
-.metrics{
-display:flex;
-gap:30px;
-margin-top:30px;
+.logo strong{
+font-size:22px;
+display:block;
 }
 
-.metric{
+.logo small{
+font-size:13px;
+opacity:0.8;
+}
+
+/* FILTER BAR */
+.filter-bar{
+background:#0e2c5a;
+padding:15px 60px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.filters{
+display:flex;
+gap:10px;
+}
+
+.filter-btn{
 background:white;
 color:#1e5aa8;
+padding:8px 16px;
+border-radius:20px;
+font-weight:600;
+font-size:14px;
+}
+
+.search-box{
+background:white;
+padding:8px 16px;
+border-radius:25px;
+}
+
+/* KPI CARDS */
+.kpis{
+position:absolute;
+right:60px;
+top:120px;
+display:flex;
+gap:20px;
+}
+
+.kpi{
+background:white;
 padding:20px 35px;
-border-radius:16px;
+border-radius:18px;
 box-shadow:0 10px 30px rgba(0,0,0,0.15);
-}
-
-.metric h2{
-margin:0;
-font-size:28px;
-}
-
-/* MAP AREA */
-.map-section{
-padding:60px;
 text-align:center;
+min-width:140px;
 }
 
-.map-container{
+.kpi h2{
+margin:0;
+font-size:26px;
+color:#1e5aa8;
+}
+
+.kpi span{
+font-size:13px;
+color:#555;
+}
+
+/* MAP SECTION */
+.map-wrapper{
 position:relative;
-max-width:1100px;
-margin:auto;
+padding:40px 60px 0 60px;
 }
 
-.map-container img{
+.map-img{
 width:100%;
+border-radius:20px;
+box-shadow:0 20px 50px rgba(0,0,0,0.15);
 }
 
 /* BUBBLES */
 .bubble{
 position:absolute;
 border-radius:50%;
-background:rgba(255,0,0,0.8);
-color:white;
-font-size:12px;
 display:flex;
 align-items:center;
 justify-content:center;
-box-shadow:0 0 20px rgba(255,0,0,0.6);
+color:white;
+font-weight:600;
+font-size:14px;
 }
 
-.bubble.large{
-width:60px;
-height:60px;
+.red{background:#e53935;box-shadow:0 0 25px rgba(229,57,53,0.6);}
+.orange{background:#fb8c00;box-shadow:0 0 20px rgba(251,140,0,0.6);}
+.green{background:#43a047;box-shadow:0 0 20px rgba(67,160,71,0.6);}
+.blue{background:#1e88e5;box-shadow:0 0 20px rgba(30,136,229,0.6);}
+.purple{background:#8e24aa;box-shadow:0 0 20px rgba(142,36,170,0.6);}
+
+.large{width:55px;height:55px;}
+.medium{width:42px;height:42px;}
+.small{width:30px;height:30px;}
+
+/* LEFT PANEL */
+.left-panel{
+position:absolute;
+left:60px;
+top:200px;
+background:white;
+padding:25px;
+width:250px;
+border-radius:16px;
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
 }
 
-.bubble.medium{
-width:45px;
-height:45px;
-background:rgba(255,140,0,0.85);
-box-shadow:0 0 20px rgba(255,140,0,0.6);
+.left-panel h3{
+margin-top:0;
+color:#1e5aa8;
 }
 
-.bubble.small{
-width:35px;
-height:35px;
-background:rgba(30,136,229,0.85);
-box-shadow:0 0 15px rgba(30,136,229,0.6);
+.legend div{
+margin-bottom:6px;
+font-size:13px;
 }
 
-/* BOTTOM PARTNERS */
+/* PARTNERS */
 .partners{
 background:white;
-padding:60px;
-}
-
-.partners h2{
-text-align:center;
-color:#1e5aa8;
-margin-bottom:40px;
+padding:40px 60px;
+margin-top:40px;
 }
 
 .partner-grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
 }
 
 .partner-card{
-background:#f7fbff;
-padding:20px;
-border-radius:18px;
+background:#f9fbff;
+padding:18px;
+border-radius:14px;
 box-shadow:0 10px 25px rgba(0,0,0,0.1);
+font-size:14px;
 }
 
-.partner-card h3{
-margin:0 0 10px;
+.partner-card h4{
+margin:0 0 10px 0;
 color:#1e5aa8;
 }
 
-footer{
-background:#173b6d;
+/* FOOTER */
+.footer{
+background:#1b3a6b;
 color:white;
-text-align:center;
-padding:25px;
+padding:20px 60px;
+display:flex;
+justify-content:space-between;
+font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<div class="header">
 <h1>IHE Delft Alumni Global Network</h1>
 <p>Building Water Solutions for a Sustainable World</p>
 
@@ -157,69 +213,88 @@ padding:25px;
 <strong>IHE DELFT</strong>
 <small>Institute for Water Education</small>
 </div>
-
-<div class="metrics">
-<div class="metric"><h2>744</h2>Total Alumni</div>
-<div class="metric"><h2>218</h2>Current Students</div>
-<div class="metric"><h2>45+</h2>Countries</div>
 </div>
-</header>
 
-<section class="map-section">
-<div class="map-container">
+<div class="filter-bar">
+<div class="filters">
+<div class="filter-btn">All Regions</div>
+<div class="filter-btn">Africa</div>
+<div class="filter-btn">Asia</div>
+<div class="filter-btn">Europe</div>
+<div class="filter-btn">Americas</div>
+<div class="filter-btn">Oceania</div>
+</div>
 
-<!-- Use a light pastel world map image -->
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg">
+<div class="search-box">Search country...</div>
+</div>
+
+<div class="kpis">
+<div class="kpi"><h2>744</h2><span>Total Alumni</span></div>
+<div class="kpi"><h2>218</h2><span>Current Students</span></div>
+<div class="kpi"><h2>45+</h2><span>Countries</span></div>
+</div>
+
+<div class="map-wrapper">
+
+<img class="map-img" src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg">
+
+<div class="left-panel">
+<h3>Our Global Impact</h3>
+<p><strong>120+</strong><br>Organizations worldwide</p>
+<div class="legend">
+<div><span style="color:#e53935;">●</span> 50+</div>
+<div><span style="color:#fb8c00;">●</span> 20–49</div>
+<div><span style="color:#43a047;">●</span> 10–19</div>
+<div><span style="color:#1e88e5;">●</span> 5–9</div>
+<div><span style="color:#8e24aa;">●</span> 1–4</div>
+</div>
+</div>
 
 <!-- Example bubbles -->
-<div class="bubble large" style="top:42%;left:52%;">55</div>
-<div class="bubble medium" style="top:40%;left:28%;">48</div>
-<div class="bubble large" style="top:55%;left:65%;">63</div>
-<div class="bubble medium" style="top:60%;left:48%;">40</div>
-<div class="bubble small" style="top:68%;left:52%;">29</div>
+<div class="bubble red large" style="top:45%;left:52%;">55</div>
+<div class="bubble red large" style="top:55%;left:65%;">63</div>
+<div class="bubble orange medium" style="top:47%;left:30%;">48</div>
+<div class="bubble orange medium" style="top:60%;left:50%;">40</div>
+<div class="bubble green medium" style="top:70%;left:55%;">29</div>
 
 </div>
-</section>
 
-<section class="partners">
-<h2>Partner Institutions by Country</h2>
-
+<div class="partners">
+<h3>Partner Institutions by Country</h3>
 <div class="partner-grid">
+
 <div class="partner-card">
-<h3>Netherlands</h3>
-Alumni: 55 | Students: 16<br><br>
-Deltares<br>TNO<br>KWR<br>IGRAC<br>UNESCO
+<h4>🇳🇱 Netherlands</h4>
+Deltares<br>TNO<br>KWR<br>IGRAC
 </div>
 
 <div class="partner-card">
-<h3>USA</h3>
-Alumni: 48 | Students: 12<br><br>
+<h4>🇺🇸 USA</h4>
 USGS<br>EPA<br>World Bank<br>Stanford
 </div>
 
 <div class="partner-card">
-<h3>India</h3>
-Alumni: 63 | Students: 18<br><br>
-IIT<br>National Institute of Hydrology
+<h4>🇮🇳 India</h4>
+IITs<br>National Institute of Hydrology
 </div>
 
 <div class="partner-card">
-<h3>Germany</h3>
-Alumni: 40 | Students: 12<br><br>
+<h4>🇨🇳 China</h4>
+China University of Geosciences
+</div>
+
+<div class="partner-card">
+<h4>🇩🇪 Germany</h4>
 UFZ<br>BGR
 </div>
 
-<div class="partner-card">
-<h3>South Africa</h3>
-Alumni: 29 | Students: 8<br><br>
-University of Cape Town<br>WRC
 </div>
 </div>
-</section>
 
-<footer>
-IHE Delft Alumni Office | Executive Dashboard
-</footer>
+<div class="footer">
+<div>Together for water. Together for the future.</div>
+<div>Data as of May 2024</div>
+</div>
 
 </body>
 </html>
