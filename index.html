@@ -5,14 +5,14 @@
 <title>IHE Delft Alumni Global Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:#f3f6fb;
-color:#1e2a3a;
+background:#f4f7fb;
 }
 
 /* HEADER */
@@ -25,12 +25,11 @@ position:relative;
 
 .header h1{
 margin:0;
-font-size:36px;
-font-weight:700;
+font-size:34px;
 }
 
 .header p{
-margin-top:8px;
+margin-top:6px;
 opacity:0.9;
 }
 
@@ -42,66 +41,90 @@ text-align:right;
 }
 
 .logo strong{font-size:22px;}
-.logo small{font-size:13px;opacity:0.8;display:block;}
+.logo small{display:block;font-size:13px;opacity:0.85;}
+
+/* FILTER BAR */
+.filter-bar{
+background:#0e2c5a;
+padding:15px 60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.filters{
+display:flex;
+gap:12px;
+}
+
+.filter-btn{
+background:white;
+padding:8px 16px;
+border-radius:20px;
+font-size:14px;
+font-weight:600;
+color:#1e5aa8;
+cursor:pointer;
+}
+
+.search-box{
+background:white;
+padding:8px 16px;
+border-radius:25px;
+}
+
+/* KPI */
+.kpis{
+position:absolute;
+right:60px;
+top:120px;
+display:flex;
+gap:20px;
+}
+
+.kpi{
+background:white;
+padding:18px 28px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+text-align:center;
+min-width:130px;
+}
+
+.kpi h2{
+margin:0;
+color:#1e5aa8;
+}
 
 /* MAP */
-.map-wrapper{
-padding:40px 60px;
+#map{
+height:65vh;
+margin:40px 60px;
+border-radius:20px;
+box-shadow:0 20px 50px rgba(0,0,0,0.15);
 }
 
-svg{
-width:100%;
-height:auto;
-}
-
-/* CONTINENT COLORS */
-.americas{fill:#f4c6c6;}
-.europe{fill:#c7dcf5;}
-.africa{fill:#d7eac3;}
-.asia{fill:#f7e2a4;}
-.oceania{fill:#e6d3f7;}
-
-.country-outline{
-stroke:white;
-stroke-width:0.6;
-}
-
-/* BUBBLES */
-.bubble{
-cursor:pointer;
-transition:0.2s;
-}
-
-.bubble:hover{
-transform:scale(1.2);
-}
-
-.red{fill:#e53935;}
-.orange{fill:#fb8c00;}
-.green{fill:#43a047;}
-.blue{fill:#1e88e5;}
-.purple{fill:#8e24aa;}
-
-.bubble-text{
-fill:white;
-font-weight:600;
-font-size:14px;
-text-anchor:middle;
-dominant-baseline:middle;
-pointer-events:none;
-}
-
-/* TOOLTIP */
-.tooltip{
+/* LEGEND */
+.legend{
 position:absolute;
+bottom:30px;
+left:30px;
 background:white;
-padding:8px 12px;
-border-radius:8px;
+padding:15px;
+border-radius:12px;
 box-shadow:0 8px 20px rgba(0,0,0,0.2);
 font-size:13px;
-display:none;
 }
 
+/* FOOTER */
+.footer{
+background:#1b3a6b;
+color:white;
+padding:20px 60px;
+display:flex;
+justify-content:space-between;
+font-size:13px;
+}
 </style>
 </head>
 
@@ -117,74 +140,85 @@ display:none;
 </div>
 </div>
 
-<div class="map-wrapper">
-
-<svg viewBox="0 0 1200 600">
-
-<!-- Real world outline simplified by continent groups -->
-
-<!-- AMERICAS -->
-<path class="americas country-outline"
-d="M80,200 L180,160 L260,190 L240,260 L190,320 L120,300 Z
-   M200,320 L250,340 L230,390 L170,380 Z"/>
-
-<!-- EUROPE -->
-<path class="europe country-outline"
-d="M520,180 L580,160 L630,190 L600,230 L540,220 Z"/>
-
-<!-- AFRICA -->
-<path class="africa country-outline"
-d="M520,230 L600,240 L630,340 L550,390 L500,330 Z"/>
-
-<!-- ASIA -->
-<path class="asia country-outline"
-d="M630,150 L950,150 L980,300 L700,320 L630,250 Z"/>
-
-<!-- OCEANIA -->
-<path class="oceania country-outline"
-d="M950,350 L1050,360 L1030,420 L930,410 Z"/>
-
-<!-- BUBBLES positioned geographically -->
-<circle cx="565" cy="195" r="25" class="bubble red"/>
-<text x="565" y="195" class="bubble-text">55</text>
-
-<circle cx="180" cy="250" r="22" class="bubble orange"/>
-<text x="180" y="250" class="bubble-text">48</text>
-
-<circle cx="750" cy="260" r="28" class="bubble red"/>
-<text x="750" y="260" class="bubble-text">63</text>
-
-<circle cx="600" cy="300" r="22" class="bubble orange"/>
-<text x="600" y="300" class="bubble-text">40</text>
-
-<circle cx="560" cy="350" r="18" class="bubble blue"/>
-<text x="560" y="350" class="bubble-text">29</text>
-
-</svg>
-
+<div class="filter-bar">
+<div class="filters">
+<div class="filter-btn">All Regions</div>
+<div class="filter-btn">Africa</div>
+<div class="filter-btn">Asia</div>
+<div class="filter-btn">Europe</div>
+<div class="filter-btn">Americas</div>
+<div class="filter-btn">Oceania</div>
+</div>
+<div class="search-box">Search country...</div>
 </div>
 
-<div class="tooltip" id="tooltip"></div>
+<div class="kpis">
+<div class="kpi"><h2>744</h2>Total Alumni</div>
+<div class="kpi"><h2>218</h2>Current Students</div>
+<div class="kpi"><h2>45+</h2>Countries</div>
+</div>
+
+<div id="map"></div>
+
+<div class="footer">
+<div>Together for water. Together for the future.</div>
+<div>Data as of May 2024</div>
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+var map = L.map('map').setView([20,0],2);
 
-const tooltip = document.getElementById("tooltip");
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+maxZoom:6
+}).addTo(map);
 
-document.querySelectorAll(".bubble").forEach(b=>{
-b.addEventListener("mouseenter",(e)=>{
-tooltip.style.display="block";
-tooltip.innerHTML="Click for country details";
+/* Pastel continent overlay */
+L.geoJSON(null, {
+style: function(feature){
+var continent = feature.properties.continent;
+return {
+fillColor:
+continent==="Africa" ? "#d7eac3" :
+continent==="Europe" ? "#c7dcf5" :
+continent==="Asia" ? "#f7e2a4" :
+continent==="North America" ? "#f4c6c6" :
+continent==="South America" ? "#f4c6c6" :
+continent==="Oceania" ? "#e6d3f7" :
+"#ffffff",
+fillOpacity:0.5,
+color:"#ffffff",
+weight:1
+};
+}
 });
-b.addEventListener("mousemove",(e)=>{
-tooltip.style.left=e.pageX+10+"px";
-tooltip.style.top=e.pageY+10+"px";
-});
-b.addEventListener("mouseleave",()=>{
-tooltip.style.display="none";
-});
-b.addEventListener("click",()=>{
-alert("Country detail panel coming soon.");
-});
+
+/* Alumni bubbles */
+function getColor(a){
+if(a>50) return "#e53935";
+if(a>30) return "#fb8c00";
+if(a>10) return "#43a047";
+return "#1e88e5";
+}
+
+var countries=[
+{name:"Netherlands",lat:52,lng:5,count:55},
+{name:"USA",lat:37,lng:-95,count:48},
+{name:"India",lat:22,lng:78,count:63},
+{name:"Germany",lat:51,lng:10,count:40},
+{name:"South Africa",lat:-29,lng:24,count:29}
+];
+
+countries.forEach(c=>{
+L.circleMarker([c.lat,c.lng],{
+radius:Math.sqrt(c.count)*2,
+fillColor:getColor(c.count),
+color:"#fff",
+weight:2,
+fillOpacity:0.9
+}).addTo(map)
+.bindPopup("<b>"+c.name+"</b><br>Alumni: "+c.count);
 });
 
 </script>
