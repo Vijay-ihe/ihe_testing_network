@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"/>
 <title>IHE Delft Alumni Global Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,7 +11,7 @@
 body{
 margin:0;
 font-family:'Inter',sans-serif;
-background:#f4f7fb;
+background:#f3f6fb;
 color:#1e2a3a;
 }
 
@@ -41,165 +41,67 @@ top:40px;
 text-align:right;
 }
 
-.logo strong{
-font-size:22px;
-display:block;
-}
+.logo strong{font-size:22px;}
+.logo small{font-size:13px;opacity:0.8;display:block;}
 
-.logo small{
-font-size:13px;
-opacity:0.8;
-}
-
-/* FILTER BAR */
-.filter-bar{
-background:#0e2c5a;
-padding:15px 60px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
-
-.filters{
-display:flex;
-gap:10px;
-}
-
-.filter-btn{
-background:white;
-color:#1e5aa8;
-padding:8px 16px;
-border-radius:20px;
-font-weight:600;
-font-size:14px;
-}
-
-.search-box{
-background:white;
-padding:8px 16px;
-border-radius:25px;
-}
-
-/* KPI CARDS */
-.kpis{
-position:absolute;
-right:60px;
-top:120px;
-display:flex;
-gap:20px;
-}
-
-.kpi{
-background:white;
-padding:20px 35px;
-border-radius:18px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-text-align:center;
-min-width:140px;
-}
-
-.kpi h2{
-margin:0;
-font-size:26px;
-color:#1e5aa8;
-}
-
-.kpi span{
-font-size:13px;
-color:#555;
-}
-
-/* MAP SECTION */
+/* MAP */
 .map-wrapper{
-position:relative;
-padding:40px 60px 0 60px;
+padding:40px 60px;
 }
 
-.map-img{
+svg{
 width:100%;
-border-radius:20px;
-box-shadow:0 20px 50px rgba(0,0,0,0.15);
+height:auto;
+}
+
+/* CONTINENT COLORS */
+.americas{fill:#f4c6c6;}
+.europe{fill:#c7dcf5;}
+.africa{fill:#d7eac3;}
+.asia{fill:#f7e2a4;}
+.oceania{fill:#e6d3f7;}
+
+.country-outline{
+stroke:white;
+stroke-width:0.6;
 }
 
 /* BUBBLES */
 .bubble{
-position:absolute;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
+cursor:pointer;
+transition:0.2s;
+}
+
+.bubble:hover{
+transform:scale(1.2);
+}
+
+.red{fill:#e53935;}
+.orange{fill:#fb8c00;}
+.green{fill:#43a047;}
+.blue{fill:#1e88e5;}
+.purple{fill:#8e24aa;}
+
+.bubble-text{
+fill:white;
 font-weight:600;
 font-size:14px;
+text-anchor:middle;
+dominant-baseline:middle;
+pointer-events:none;
 }
 
-.red{background:#e53935;box-shadow:0 0 25px rgba(229,57,53,0.6);}
-.orange{background:#fb8c00;box-shadow:0 0 20px rgba(251,140,0,0.6);}
-.green{background:#43a047;box-shadow:0 0 20px rgba(67,160,71,0.6);}
-.blue{background:#1e88e5;box-shadow:0 0 20px rgba(30,136,229,0.6);}
-.purple{background:#8e24aa;box-shadow:0 0 20px rgba(142,36,170,0.6);}
-
-.large{width:55px;height:55px;}
-.medium{width:42px;height:42px;}
-.small{width:30px;height:30px;}
-
-/* LEFT PANEL */
-.left-panel{
+/* TOOLTIP */
+.tooltip{
 position:absolute;
-left:60px;
-top:200px;
 background:white;
-padding:25px;
-width:250px;
-border-radius:16px;
-box-shadow:0 15px 40px rgba(0,0,0,0.15);
-}
-
-.left-panel h3{
-margin-top:0;
-color:#1e5aa8;
-}
-
-.legend div{
-margin-bottom:6px;
+padding:8px 12px;
+border-radius:8px;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
 font-size:13px;
+display:none;
 }
 
-/* PARTNERS */
-.partners{
-background:white;
-padding:40px 60px;
-margin-top:40px;
-}
-
-.partner-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-}
-
-.partner-card{
-background:#f9fbff;
-padding:18px;
-border-radius:14px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-font-size:14px;
-}
-
-.partner-card h4{
-margin:0 0 10px 0;
-color:#1e5aa8;
-}
-
-/* FOOTER */
-.footer{
-background:#1b3a6b;
-color:white;
-padding:20px 60px;
-display:flex;
-justify-content:space-between;
-font-size:13px;
-}
 </style>
 </head>
 
@@ -215,86 +117,77 @@ font-size:13px;
 </div>
 </div>
 
-<div class="filter-bar">
-<div class="filters">
-<div class="filter-btn">All Regions</div>
-<div class="filter-btn">Africa</div>
-<div class="filter-btn">Asia</div>
-<div class="filter-btn">Europe</div>
-<div class="filter-btn">Americas</div>
-<div class="filter-btn">Oceania</div>
-</div>
-
-<div class="search-box">Search country...</div>
-</div>
-
-<div class="kpis">
-<div class="kpi"><h2>744</h2><span>Total Alumni</span></div>
-<div class="kpi"><h2>218</h2><span>Current Students</span></div>
-<div class="kpi"><h2>45+</h2><span>Countries</span></div>
-</div>
-
 <div class="map-wrapper">
 
-<img class="map-img" src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg">
+<svg viewBox="0 0 1200 600">
 
-<div class="left-panel">
-<h3>Our Global Impact</h3>
-<p><strong>120+</strong><br>Organizations worldwide</p>
-<div class="legend">
-<div><span style="color:#e53935;">●</span> 50+</div>
-<div><span style="color:#fb8c00;">●</span> 20–49</div>
-<div><span style="color:#43a047;">●</span> 10–19</div>
-<div><span style="color:#1e88e5;">●</span> 5–9</div>
-<div><span style="color:#8e24aa;">●</span> 1–4</div>
-</div>
-</div>
+<!-- Real world outline simplified by continent groups -->
 
-<!-- Example bubbles -->
-<div class="bubble red large" style="top:45%;left:52%;">55</div>
-<div class="bubble red large" style="top:55%;left:65%;">63</div>
-<div class="bubble orange medium" style="top:47%;left:30%;">48</div>
-<div class="bubble orange medium" style="top:60%;left:50%;">40</div>
-<div class="bubble green medium" style="top:70%;left:55%;">29</div>
+<!-- AMERICAS -->
+<path class="americas country-outline"
+d="M80,200 L180,160 L260,190 L240,260 L190,320 L120,300 Z
+   M200,320 L250,340 L230,390 L170,380 Z"/>
 
-</div>
+<!-- EUROPE -->
+<path class="europe country-outline"
+d="M520,180 L580,160 L630,190 L600,230 L540,220 Z"/>
 
-<div class="partners">
-<h3>Partner Institutions by Country</h3>
-<div class="partner-grid">
+<!-- AFRICA -->
+<path class="africa country-outline"
+d="M520,230 L600,240 L630,340 L550,390 L500,330 Z"/>
 
-<div class="partner-card">
-<h4>🇳🇱 Netherlands</h4>
-Deltares<br>TNO<br>KWR<br>IGRAC
-</div>
+<!-- ASIA -->
+<path class="asia country-outline"
+d="M630,150 L950,150 L980,300 L700,320 L630,250 Z"/>
 
-<div class="partner-card">
-<h4>🇺🇸 USA</h4>
-USGS<br>EPA<br>World Bank<br>Stanford
-</div>
+<!-- OCEANIA -->
+<path class="oceania country-outline"
+d="M950,350 L1050,360 L1030,420 L930,410 Z"/>
 
-<div class="partner-card">
-<h4>🇮🇳 India</h4>
-IITs<br>National Institute of Hydrology
-</div>
+<!-- BUBBLES positioned geographically -->
+<circle cx="565" cy="195" r="25" class="bubble red"/>
+<text x="565" y="195" class="bubble-text">55</text>
 
-<div class="partner-card">
-<h4>🇨🇳 China</h4>
-China University of Geosciences
-</div>
+<circle cx="180" cy="250" r="22" class="bubble orange"/>
+<text x="180" y="250" class="bubble-text">48</text>
 
-<div class="partner-card">
-<h4>🇩🇪 Germany</h4>
-UFZ<br>BGR
-</div>
+<circle cx="750" cy="260" r="28" class="bubble red"/>
+<text x="750" y="260" class="bubble-text">63</text>
+
+<circle cx="600" cy="300" r="22" class="bubble orange"/>
+<text x="600" y="300" class="bubble-text">40</text>
+
+<circle cx="560" cy="350" r="18" class="bubble blue"/>
+<text x="560" y="350" class="bubble-text">29</text>
+
+</svg>
 
 </div>
-</div>
 
-<div class="footer">
-<div>Together for water. Together for the future.</div>
-<div>Data as of May 2024</div>
-</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+
+const tooltip = document.getElementById("tooltip");
+
+document.querySelectorAll(".bubble").forEach(b=>{
+b.addEventListener("mouseenter",(e)=>{
+tooltip.style.display="block";
+tooltip.innerHTML="Click for country details";
+});
+b.addEventListener("mousemove",(e)=>{
+tooltip.style.left=e.pageX+10+"px";
+tooltip.style.top=e.pageY+10+"px";
+});
+b.addEventListener("mouseleave",()=>{
+tooltip.style.display="none";
+});
+b.addEventListener("click",()=>{
+alert("Country detail panel coming soon.");
+});
+});
+
+</script>
 
 </body>
 </html>
