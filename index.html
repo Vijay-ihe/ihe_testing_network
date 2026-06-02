@@ -5,193 +5,144 @@
 <title>IHE Delft Alumni Global Network</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
 <style>
-body {
-    margin:0;
-    font-family:"Segoe UI", Arial, sans-serif;
-    background:#eef3f9;
+body{
+margin:0;
+font-family:"Segoe UI",Arial,sans-serif;
+background:#f3f6fb;
 }
 
 /* HEADER */
-header {
-    background:linear-gradient(120deg,#1b3a6b,#1e5aa8,#0288d1);
-    color:white;
-    padding:50px 40px 90px 40px;
-    position:relative;
+header{
+background:linear-gradient(120deg,#1b3a6b,#1e5aa8,#0288d1);
+color:white;
+padding:50px 60px;
+position:relative;
 }
 
-header h1 {
-    margin:0;
-    font-size:38px;
+header h1{
+margin:0;
+font-size:40px;
 }
 
-header p {
-    margin-top:8px;
-    opacity:0.9;
+header p{
+margin-top:8px;
+opacity:0.9;
 }
 
-/* REAL SVG-STYLE IHE LOGO */
-.logo {
-    position:absolute;
-    top:35px;
-    right:40px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+.logo{
+position:absolute;
+right:60px;
+top:50px;
+text-align:right;
 }
 
-.logo-box {
-    width:22px;
-    height:22px;
-    background:#00a3e0;
+.logo strong{font-size:20px;}
+.logo small{display:block;font-size:12px;opacity:0.8}
+
+/* METRICS */
+.metrics{
+display:flex;
+gap:30px;
+margin-top:30px;
 }
 
-.logo-text {
-    text-align:right;
-    font-weight:600;
+.metric{
+background:white;
+color:#1e5aa8;
+padding:20px 35px;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-.logo-text small {
-    display:block;
-    font-weight:400;
-    font-size:12px;
+.metric h2{
+margin:0;
+font-size:28px;
 }
 
-/* KPI CARDS */
-.kpis {
-    display:flex;
-    justify-content:center;
-    gap:30px;
-    margin-top:30px;
+/* MAP AREA */
+.map-section{
+padding:60px;
+text-align:center;
 }
 
-.kpi {
-    background:white;
-    padding:22px 40px;
-    border-radius:16px;
-    box-shadow:0 12px 35px rgba(0,0,0,0.2);
-    text-align:center;
-    min-width:220px;
-    transition:0.3s;
+.map-container{
+position:relative;
+max-width:1100px;
+margin:auto;
 }
 
-.kpi:hover {
-    transform:translateY(-6px);
+.map-container img{
+width:100%;
 }
 
-.kpi h2 {
-    margin:0;
-    font-size:30px;
-    color:#1e5aa8;
+/* BUBBLES */
+.bubble{
+position:absolute;
+border-radius:50%;
+background:rgba(255,0,0,0.8);
+color:white;
+font-size:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 0 20px rgba(255,0,0,0.6);
 }
 
-.kpi span {
-    font-size:14px;
-    color:#555;
+.bubble.large{
+width:60px;
+height:60px;
 }
 
-/* FILTERS */
-.filters {
-    text-align:center;
-    margin-top:-45px;
-    position:relative;
-    z-index:5;
+.bubble.medium{
+width:45px;
+height:45px;
+background:rgba(255,140,0,0.85);
+box-shadow:0 0 20px rgba(255,140,0,0.6);
 }
 
-.filters button {
-    margin:5px;
-    padding:8px 15px;
-    border:none;
-    border-radius:20px;
-    background:#e6eef7;
-    font-weight:600;
-    cursor:pointer;
+.bubble.small{
+width:35px;
+height:35px;
+background:rgba(30,136,229,0.85);
+box-shadow:0 0 15px rgba(30,136,229,0.6);
 }
 
-.filters button:hover {
-    background:#1e5aa8;
-    color:white;
+/* BOTTOM PARTNERS */
+.partners{
+background:white;
+padding:60px;
 }
 
-/* MAP */
-#map {
-    height:60vh;
+.partners h2{
+text-align:center;
+color:#1e5aa8;
+margin-bottom:40px;
 }
 
-/* CONTINENT TINT OVERLAY */
-.tint {
-    position:absolute;
-    width:100%;
-    height:60vh;
-    pointer-events:none;
-    background:linear-gradient(
-        rgba(255,200,200,0.15),
-        rgba(200,255,200,0.15),
-        rgba(200,200,255,0.15)
-    );
+.partner-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
 }
 
-/* LEGEND */
-.legend {
-    position:absolute;
-    bottom:30px;
-    left:30px;
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.25);
-    font-size:13px;
+.partner-card{
+background:#f7fbff;
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-/* BOTTOM PANEL */
-.bottom {
-    background:white;
-    padding:50px 40px;
+.partner-card h3{
+margin:0 0 10px;
+color:#1e5aa8;
 }
 
-.bottom h2 {
-    color:#1e5aa8;
-    margin-bottom:30px;
-}
-
-.grid {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:30px;
-}
-
-.card {
-    background:#f9fbff;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.1);
-    transition:0.3s;
-}
-
-.card:hover {
-    transform:translateY(-8px);
-    box-shadow:0 18px 45px rgba(0,0,0,0.2);
-}
-
-.card h3 {
-    margin:0 0 12px;
-    color:#1e5aa8;
-}
-
-.partners {
-    font-size:14px;
-    line-height:1.6;
-}
-
-/* FOOTER */
-footer {
-    text-align:center;
-    padding:25px;
-    background:#173b6d;
-    color:white;
-    font-size:14px;
+footer{
+background:#173b6d;
+color:white;
+text-align:center;
+padding:25px;
 }
 </style>
 </head>
@@ -199,104 +150,76 @@ footer {
 <body>
 
 <header>
-    <h1>IHE Delft Alumni Global Network</h1>
-    <p>Building Water Solutions for a Sustainable World</p>
+<h1>IHE Delft Alumni Global Network</h1>
+<p>Building Water Solutions for a Sustainable World</p>
 
-    <div class="logo">
-        <div class="logo-text">
-            IHE DELFT
-            <small>Institute for Water Education</small>
-        </div>
-        <div class="logo-box"></div>
-    </div>
+<div class="logo">
+<strong>IHE DELFT</strong>
+<small>Institute for Water Education</small>
+</div>
 
-    <div class="kpis">
-        <div class="kpi"><h2>744</h2><span>Total Alumni</span></div>
-        <div class="kpi"><h2>218</h2><span>Current Students</span></div>
-        <div class="kpi"><h2>45+</h2><span>Countries</span></div>
-    </div>
+<div class="metrics">
+<div class="metric"><h2>744</h2>Total Alumni</div>
+<div class="metric"><h2>218</h2>Current Students</div>
+<div class="metric"><h2>45+</h2>Countries</div>
+</div>
 </header>
 
-<div class="filters">
-    <button>All Regions</button>
-    <button>Africa</button>
-    <button>Asia</button>
-    <button>Europe</button>
-    <button>Americas</button>
-    <button>Oceania</button>
+<section class="map-section">
+<div class="map-container">
+
+<!-- Use a light pastel world map image -->
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg">
+
+<!-- Example bubbles -->
+<div class="bubble large" style="top:42%;left:52%;">55</div>
+<div class="bubble medium" style="top:40%;left:28%;">48</div>
+<div class="bubble large" style="top:55%;left:65%;">63</div>
+<div class="bubble medium" style="top:60%;left:48%;">40</div>
+<div class="bubble small" style="top:68%;left:52%;">29</div>
+
+</div>
+</section>
+
+<section class="partners">
+<h2>Partner Institutions by Country</h2>
+
+<div class="partner-grid">
+<div class="partner-card">
+<h3>Netherlands</h3>
+Alumni: 55 | Students: 16<br><br>
+Deltares<br>TNO<br>KWR<br>IGRAC<br>UNESCO
 </div>
 
-<div style="position:relative;">
-    <div id="map"></div>
-    <div class="tint"></div>
+<div class="partner-card">
+<h3>USA</h3>
+Alumni: 48 | Students: 12<br><br>
+USGS<br>EPA<br>World Bank<br>Stanford
 </div>
 
-<div class="bottom">
-    <h2>Partner Institutions by Country</h2>
-    <div class="grid" id="cards"></div>
+<div class="partner-card">
+<h3>India</h3>
+Alumni: 63 | Students: 18<br><br>
+IIT<br>National Institute of Hydrology
 </div>
+
+<div class="partner-card">
+<h3>Germany</h3>
+Alumni: 40 | Students: 12<br><br>
+UFZ<br>BGR
+</div>
+
+<div class="partner-card">
+<h3>South Africa</h3>
+Alumni: 29 | Students: 8<br><br>
+University of Cape Town<br>WRC
+</div>
+</div>
+</section>
 
 <footer>
-IHE Delft Alumni Network | Data as of 2024
+IHE Delft Alumni Office | Executive Dashboard
 </footer>
-
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<script>
-var map = L.map('map').setView([20,10],2);
-
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
-    maxZoom:5
-}).addTo(map);
-
-var countries=[
-{ name:"Netherlands", lat:52.1,lng:5.3,alumni:55,students:16,
-partners:["Deltares","TNO","KWR","IGRAC","UNESCO"]},
-{ name:"USA", lat:38.9,lng:-98,alumni:48,students:12,
-partners:["USGS","EPA","World Bank","Stanford"]},
-{ name:"India", lat:22.5,lng:78.9,alumni:63,students:18,
-partners:["IIT","National Institute of Hydrology"]},
-{ name:"China", lat:35.8,lng:104,alumni:52,students:14,
-partners:["China University of Geosciences"]},
-{ name:"Germany", lat:51.1,lng:10.4,alumni:40,students:12,
-partners:["UFZ","BGR"]},
-{ name:"South Africa", lat:-30.6,lng:22.9,alumni:29,students:8,
-partners:["University of Cape Town","WRC"]}
-];
-
-function getColor(a){
-if(a>50) return "#e53935";
-if(a>35) return "#fb8c00";
-if(a>20) return "#43a047";
-return "#1e88e5";
-}
-
-countries.forEach(function(c){
-L.circleMarker([c.lat,c.lng],{
-radius:Math.sqrt(c.alumni)*2,
-fillColor:getColor(c.alumni),
-color:"#fff",
-weight:2,
-fillOpacity:0.9
-}).addTo(map)
-.bindPopup("<b>"+c.name+"</b><br>"+
-"Alumni: "+c.alumni+"<br>"+
-"Students: "+c.students+"<br><br>"+
-"<b>Partners:</b><br>"+c.partners.join("<br>"));
-});
-
-var container=document.getElementById("cards");
-countries.forEach(function(c){
-var div=document.createElement("div");
-div.className="card";
-div.innerHTML="<h3>"+c.name+"</h3>"+
-"<b>Alumni:</b> "+c.alumni+
-" | <b>Students:</b> "+c.students+
-"<div class='partners'><b>Partners:</b><br>"+
-c.partners.join("<br>")+"</div>";
-container.appendChild(div);
-});
-</script>
 
 </body>
 </html>
